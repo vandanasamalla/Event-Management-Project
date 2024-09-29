@@ -1,0 +1,96 @@
+create database dbmsproject;
+use dbmsproject;
+
+
+ create table organizer(
+ organizer_id int primary key,
+ organizer_name varchar(20),
+ contact_info varchar(20));
+ 
+ insert into organizer values(1,'Jaohn','John123@gmail.com');
+ insert into organizer values(2,'Jack','Jack123@gmail.com');
+insert into organizer values(3,'Tom','Tom123@gmail.com');
+
+create table event1(
+ event_id int primary key,
+ event_name varchar(20),
+ event_date date,
+ location varchar(20),
+ organizer_id int,
+ foreign key(organizer_id) references organizer(organizer_id));
+ 
+ insert into event1 values(11,'music festival','2024-09-29','hyderabad dsnr',1);
+ insert into event1 values(12,'art exhibition','2024-10-20','karimnagar',2);
+ insert into event1 values(13,' film frstival','2024-10-25','hyderabad',1);
+ insert into event1 values(14,'gaming tournament','2024-10-12','nijamabad',3);
+ 
+ create table participants(
+ participant_id int primary key,
+ participant_name varchar(20),
+ contact_info varchar (100));
+ 
+  insert into participants values(101,'Vandana','vandanasamalla@gmail.com');
+insert into participants values(102,'Anusha','Anushakotagiri@gmail.com');
+insert into participants values(103,'Rashmitha','rashmitha@gmail.com');
+insert into participants values(104,'yasmin','yasmin@gmail.com');
+
+ create table event_participants(
+event_id int,
+participant_id int,
+PRIMARY KEY (event_id, participant_id),
+foreign key(event_id) references event1(event_id),
+foreign key(participant_id) references participants(participant_id));
+  
+
+insert into event_participants values(11,101);
+insert into event_participants values(11,102);
+insert into event_participants values(11,103);
+insert into event_participants values(12,102);
+insert into event_participants values(12,104);
+insert into event_participants values(13,102);
+insert into event_participants values(13,103);
+
+create table ticket(
+ticket_id int primary key,
+event_id int,
+foreign key(event_id) references event1(event_id),
+ticket_price bigint);
+
+insert into ticket values(1001,11,1000);
+insert into ticket values(1002,12,1500);
+insert into ticket values(1003,13,1800);
+insert into ticket values(1004,14,2000);
+
+create table venues(
+venue_id int,
+venue_name varchar(100),
+address varchar(100),
+capacity int,
+contact_info varchar(100),
+    event_id INT, 
+    FOREIGN KEY (event_id) REFERENCES event1(event_id));
+
+insert into venues values (201, 'Main Hall', '123 Venue St, Hyderabad', 500, 'venue_contact1@gmail.com', 11);
+insert into venues values (202, 'Art Gallery', '456 Art St, Karimnagar', 300, 'venue_contact2@gmail.com', 12);
+insert into venues values(203, 'Cinema Hall', '789 Film Ave, Hyderabad', 250, 'venue_contact3@gmail.com', 13);
+INSERT INTO venues VALUES (204, 'Gaming Arena', '321 Game St, Nizamabad', 400, 'venue_contact4@gmail.com', 14);
+
+create table sponsorships(
+sponsor_id int primary key,
+event_id int,
+foreign key(event_id) references event1(event_id),
+sponsor_name varchar(50),
+sponsorship_amount bigint);
+
+insert into sponsorships values (301, 11, 'Company A', 50000);
+insert into sponsorships values (302, 12, 'Company B', 30000);
+insert into sponsorships values (303, 13, 'Company C', 45000);
+insert into sponsorships values (304, 14, 'Company D', 60000);
+
+
+
+
+ 
+
+
+ 
